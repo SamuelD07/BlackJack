@@ -106,3 +106,40 @@ def rendirse_jugador(self):
             elif self.casa.get_valor() > 21:
                 # 3.3.1 Se ejecuta el requisito R5 Finalizar juego
                 self.finalizar_juego(False)
+
+def finalizar_juego(self, jugador_gano):
+    # 1. Se comparan las manos del jugador y de la casa
+    if self.jugador.get_valor() > self.casa.get_valor() or self.casa.get_valor() > 21:
+        # 2. Si el jugador tiene blackjack, su mano es mayor que la mano de la casa o la mano de la casa superó 21
+        # 2.1 El sistema anuncia el jugador como ganador
+        print("El jugador ha ganado")
+        # 2.2 Se doblan las fichas de la apuesta realizada
+        self.jugador.doblar_fichas()
+    elif self.casa.get_valor() > self.jugador.get_valor() or self.jugador.get_valor() > 21:
+        # 3. Si la casa tiene blackjack, su mano es mayor que la mano del jugador o la mano del jugador superó 21
+        # 3.1 El sistema anuncia que el jugador perdió
+        print("El jugador ha perdido")
+        # 3.3 Se restan las fichas de la apuesta de las fichas del jugador
+        self.jugador.restar_fichas(self.apuesta)
+    else:
+        # 4. Si la mano del jugador y la mano de la casa tienen el mismo valor
+        # 4.1 El sistema anuncia empate
+        print("Empate")
+        # 4.2 se devuelven las fichas apostadas al jugador
+        self.jugador.devolver_fichas(self.apuesta)
+    # 5. Si el usuario tiene fichas disponibles
+    if self.jugador.get_fichas() > 0:
+        # 5.1 Se presenta un menú con las opciones para iniciar un nuevo (R2) o salir de la aplicación
+        print("¿Desea iniciar un nuevo juego (R2) o salir de la aplicación?")
+        opcion = input()
+        if opcion == "R2":
+            # 5.1.1 Si el usuario elige iniciar un nuevo juego, se reinicia el juego
+            self.reiniciar_juego()
+        else:
+            # 5.1.2 Si el usuario elige salir de la aplicación, se cierra la aplicación
+            sys.exit()
+    # 6. Si usuario no tiene fichas disponibles
+    else:
+        # 6.1 Se termina la aplicación
+        print("El jugador no tiene fichas disponibles. Fin del juego.")
+        sys.exit()
