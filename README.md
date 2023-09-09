@@ -1,1 +1,1 @@
-![img_1.png](img_1.png)
+[Requisitos Blackjack.docx](..%2F..%2FDownloads%2FRequisitos%20Blackjack.docx)
