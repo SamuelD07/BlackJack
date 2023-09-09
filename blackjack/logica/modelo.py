@@ -80,3 +80,29 @@ def doblar_jugador(self):
     self.jugador.calcular_valor_mano()
     # 4.2 Se ejecuta el requisito R4 hacer jugada de la casa
     self.hacer_jugada_casa()
+def rendirse_jugador(self):
+
+
+    def hacer_jugada_casa(self):
+        # 1. Se destapa la carta oculta de la casa
+        self.casa.destapar_carta_oculta()
+        # 2. Si la mano de la casa es blackjack
+        if self.casa.es_blackjack():
+            # 2.1 Se ejecuta el requisito R5 finalizar juego (la casa gana)
+            self.finalizar_juego(True)
+        # 3. Si la mano de la casa no es blackjack
+        else:
+            # 3.1 Si la mano de la casa es menor o igual que 16 y menor que la mano del jugador
+            if self.casa.get_valor() <= 16 and self.casa.get_valor() < self.jugador.get_valor():
+                # 3.1.1 Se reparte una carta a la mano de la casa
+                self.casa.repartir_carta()
+                # 3.1.2 Se calcula el valor de la mano se vuelve a evaluar (punto 3.1)
+                self.hacer_jugada_casa()
+            # 3.2 Si la mano de la casa es mayor a 16 y menor o igual a 21
+            elif self.casa.get_valor() > 16 and self.casa.get_valor() <= 21:
+                # 3.2.1 Se ejecuta el requisito R5 Finalizar juego
+                self.finalizar_juego(False)
+            # 3.3 Si la mano de la casa se pasó de 21
+            elif self.casa.get_valor() > 21:
+                # 3.3.1 Se ejecuta el requisito R5 Finalizar juego
+                self.finalizar_juego(False)
